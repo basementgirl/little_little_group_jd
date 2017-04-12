@@ -57,18 +57,6 @@ def statistic_count_action(fname,chunksize=100000):
 
     df_ac=pd.concat(chunks,ignore_index=True)
 
-    '''df_ac1=df_ac[['user_id','type']].groupby(['user_id'],as_index=False).apply(counter_type)
-    df_ac1=df_ac1.drop_duplicates()
-
-    df_ac2 = df_ac[['user_id', 'sku_id']].groupby(['user_id'], as_index=False).apply(counter_sku)
-    df_ac2 = df_ac2.drop_duplicates()
-
-    df_ac3 = df_ac[['user_id', 'cate']].groupby(['user_id'], as_index=False).apply(counter_cate)
-    df_ac3 = df_ac3.drop_duplicates()
-
-    df_ac4=pd.merge(df_ac1,df_ac2,on=['user_id'],how='left')
-    df_ac4=pd.merge(df_ac4,df_ac3,on=['user_id'],how='left')
-    return df_ac4'''
     df_ac1 = df_ac.groupby(['user_id'], as_index=False).apply(counter_type)
     df_ac1 = df_ac1.groupby(['user_id'], as_index=False).apply(counter_sku)
     df_ac1 = df_ac1.groupby(['user_id'], as_index=False).apply(counter_cate)
