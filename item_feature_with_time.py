@@ -1,0 +1,97 @@
+import pandas as pd
+from collections import Counter
+
+action_2016_02_file='jdata_sam/JData_Action_201602.csv'
+action_2016_03_file='jdata_sam/JData_Action_201603.csv'
+action_2016_04_file='jdata_sam/JData_Action_201604.csv'
+comment_file='jdata_ori/JData_Comment.csv'
+product_file='jdata_ori/JData_Product.csv'
+#comment_file='jdata_ori/JData_Comment.csv'
+product_feature_file='jdata_sam/product_feature.csv'
+
+
+def counter_type(group):
+    behavior_type = group.type.astype(int)
+    type_cnt=Counter(behavior_type)
+    group['browse_num']=type_cnt[1]
+    group['addcart_num'] = type_cnt[2]
+    group['delcart_num'] = type_cnt[3]
+    group['buy_num'] = type_cnt[4]
+    group['favor_num'] = type_cnt[5]
+    group['click_num'] = type_cnt[6]
+
+    return group[['sku_id', 'browse_num', 'addcart_num',
+                  'delcart_num', 'buy_num', 'favor_num',
+                  'click_num']]
+
+
+def statistic_count_action(fname,chunksize=10000):
+    reader=pd.read_csv(fname,iterator=True)
+    chunks=[]
+    loop=True
+    while loop:
+        try:
+            chunk=reader.get_chunk(chunksize)[['sku_id','type']]
+            chunks.append(chunk)
+        except StopIteration:
+            loop=False
+            print('Iteration is stopped!')
+
+    df_ac = pd.concat(chunks, ignore_index=True)
+
+    df_ac = df_ac.groupby(['sku_id'], as_index=False).apply(counter_type)
+    df_ac = df_ac.drop_duplicates()
+    return df_ac
+
+
+def all_active_data():
+    df_ac=[]
+    df_ac.append(statistic_count_action(action_2016_02_file))
+    df_ac.append(statistic_count_action(action_2016_03_file))
+    df_ac.append(statistic_count_action(action_2016_04_file))
+
+    df_ac=pd.concat(df_ac,ignore_index=True)
+
+    df_ac=df_ac.groupby(['sku_id'],as_index=False).sum()
+
+
+    df_ac['buy_browse_rate']=df_ac['buy_num']/df_ac['browse_num']
+    df_ac['buy_addcart_rate'] = df_ac['buy_num'] / df_ac['addcart_num']
+    df_ac['buy_favor_rate'] = df_ac['buy_num'] / df_ac['favor_num']
+    df_ac['buy_click_rate'] = df_ac['buy_num'] / df_ac['click_num']
+
+
+    df_ac.ix[df_ac['buy_browse_rate'] > 1.0, 'buy_browse_rate'] = 1
+    df_ac.ix[df_ac['buy_addcart_rate'] > 1.0, 'buy_addcart_rate'] = 1
+    df_ac.ix[df_ac['buy_favor_rate'] > 1.0, 'buy_favor_rate'] = 1
+    df_ac.ix[df_ac['buy_click_rate'] > 1.0, 'buy_click_rate'] = 1
+
+    return df_ac
+
+
+def get_item_basic_feature():
+    df_product=pd.read_csv(product_file)
+    return df_product
+
+
+'''def bad_rate_counter(group):
+    avg_bad_com=group['bad_comment_rate'].sum()/len(group)
+    group['avg_bad_com']=avg_bad_com
+    return group[['sku_id','avg_bad_com']]
+
+
+def get_item_com_feature():
+    df_com=pd.read_csv(comment_file)
+    df_com=df_com.groupby(['sku_id'], as_index=False).apply(bad_rate_counter)
+    df_com = df_com.drop_duplicated()
+    return df_com'''
+
+if __name__ == "__main__":
+    product_base=get_item_basic_feature()
+    product_act=all_active_data()
+
+    product_feature=pd.merge(product_base,product_act,on=['sku_id'],how='left')
+    product_feature = product_feature.dropna()
+
+    product_feature.to_csv(product_feature_file,index=False,encoding='GBK')
+
