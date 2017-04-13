@@ -7,7 +7,7 @@ action_2016_03_file='jdata_sam/JData_Action_201603.csv'
 action_2016_04_file='jdata_sam/JData_Action_201604.csv'
 user_file='jdata_ori/JData_User.csv'
 
-user_feature2='jdata_sam/user_feature2.csv'
+user_feature_cate='jdata_sam/user_feature_cate.csv'
 
 
 def counter_cate(group):
@@ -81,9 +81,8 @@ def convert_age(age_str):
 if __name__=="__main__":
     user_basic=get_user_basic_feature()
     user_active=all_active_data()
-
     all_user_feature=pd.merge(user_basic,user_active,on=['user_id'])
-    all_user_feature.to_csv(user_feature2,index=False)
+    all_user_feature.to_csv(user_feature_cate,index=False)
 
 
 

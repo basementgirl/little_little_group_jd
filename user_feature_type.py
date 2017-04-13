@@ -7,7 +7,7 @@ action_2016_03_file='jdata_sam/JData_Action_201603.csv'
 action_2016_04_file='jdata_sam/JData_Action_201604.csv'
 user_file='jdata_ori/JData_User.csv'
 
-user_feature1='jdata_sam/user_feature1.csv'
+user_feature_type='jdata_sam/user_feature_type.csv'
 
 
 #每个用户六种行为统计
@@ -102,10 +102,9 @@ if __name__=="__main__":
     user_basic=get_user_basic_feature()
     user_active=all_active_data()
 
-    all_user_feature=pd.merge(user_basic,user_active,on=['user_id'],how='left')
-    all_user_feature =all_user_feature.dropna()
+    all_user_feature=pd.merge(user_basic,user_active,on=['user_id'])
     all_user_feature.drop(all_user_feature[(all_user_feature['buy_num'] < 1) & (all_user_feature['browse_num'] > 1000)], axis=1)
-    all_user_feature.to_csv(user_feature1,index=False)
+    all_user_feature.to_csv(user_feature_type,index=False)
 
 
 
