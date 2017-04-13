@@ -7,7 +7,7 @@ action_2016_03_file='jdata_sam/JData_Action_201603.csv'
 action_2016_04_file='jdata_sam/JData_Action_201604.csv'
 user_file='jdata_ori/JData_User.csv'
 
-user_feature='jdata_sam/user_feature.csv'
+user_feature1='jdata_sam/user_feature1.csv'
 
 
 #每个用户六种行为统计
@@ -22,25 +22,6 @@ def counter_type(group):
     group['click_num'] = type_cnt[6]
     group = group.drop('type', axis=1)
     return group
-
-
-
-def counter_sku(group):
-    sku_cnt = Counter(group['sku_id'])
-    for i in sku_cnt:
-        group['num_of_skuid_%u' % int(i)] = sku_cnt[i]
-    group = group.drop('sku_id', axis=1)
-    return group
-
-
-def counter_cate(group):
-    cate_cnt = Counter(group['cate'])
-    for i in cate_cnt:
-        group['num_of_cate_%u' % int(i)] = cate_cnt[i]
-    group = group.drop('cate', axis=1)
-    return group
-
-
 
 #统计每个用户的行为数据
 def statistic_count_action(fname,chunksize=100000):
@@ -58,8 +39,7 @@ def statistic_count_action(fname,chunksize=100000):
     df_ac=pd.concat(chunks,ignore_index=True)
 
     df_ac1 = df_ac.groupby(['user_id'], as_index=False).apply(counter_type)
-    df_ac1 = df_ac1.groupby(['user_id'], as_index=False).apply(counter_sku)
-    df_ac1 = df_ac1.groupby(['user_id'], as_index=False).apply(counter_cate)
+
     df_ac1=df_ac1.drop_duplicates()
     return df_ac1
 
@@ -125,7 +105,7 @@ if __name__=="__main__":
     all_user_feature=pd.merge(user_basic,user_active,on=['user_id'],how='left')
     all_user_feature =all_user_feature.dropna()
     all_user_feature.drop(all_user_feature[(all_user_feature['buy_num'] < 1) & (all_user_feature['browse_num'] > 1000)], axis=1)
-    all_user_feature.to_csv(user_feature,index=False)
+    all_user_feature.to_csv(user_feature1,index=False)
 
 
 
