@@ -6,8 +6,7 @@ action_2016_03_file='jdata_sam/JData_Action_201603.csv'
 action_2016_04_file='jdata_sam/JData_Action_201604.csv'
 comment_file='jdata_ori/JData_Comment.csv'
 product_file='jdata_ori/JData_Product.csv'
-#comment_file='jdata_ori/JData_Comment.csv'
-product_feature_file='jdata_sam/product_feature.csv'
+item_feature_type='jdata_sam/item_feature_type.csv'
 
 
 def counter_type(group):
@@ -25,7 +24,7 @@ def counter_type(group):
                   'click_num']]
 
 
-def statistic_count_action(fname,chunksize=10000):
+def statistic_count_action(fname,chunksize=100000):
     reader=pd.read_csv(fname,iterator=True)
     chunks=[]
     loop=True
@@ -74,24 +73,12 @@ def get_item_basic_feature():
     return df_product
 
 
-'''def bad_rate_counter(group):
-    avg_bad_com=group['bad_comment_rate'].sum()/len(group)
-    group['avg_bad_com']=avg_bad_com
-    return group[['sku_id','avg_bad_com']]
 
-
-def get_item_com_feature():
-    df_com=pd.read_csv(comment_file)
-    df_com=df_com.groupby(['sku_id'], as_index=False).apply(bad_rate_counter)
-    df_com = df_com.drop_duplicated()
-    return df_com'''
 
 if __name__ == "__main__":
     product_base=get_item_basic_feature()
     product_act=all_active_data()
 
-    product_feature=pd.merge(product_base,product_act,on=['sku_id'],how='left')
-    product_feature = product_feature.dropna()
-
-    product_feature.to_csv(product_feature_file,index=False,encoding='GBK')
+    product_feature=pd.merge(product_base,product_act,on=['sku_id'])
+    product_feature.to_csv(item_feature_type,index=False)
 
