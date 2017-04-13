@@ -30,7 +30,7 @@ def statistic_count_action(fname,chunksize=100000):
     loop=True
     while loop:
         try:
-            chunk=reader.get_chunk(chunksize)[['user_id','sku_id','type','cate']]
+            chunk=reader.get_chunk(chunksize)[['user_id','type']]
             chunks.append(chunk)
         except StopIteration:
             loop=False
