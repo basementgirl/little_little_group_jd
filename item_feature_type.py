@@ -1,12 +1,11 @@
 import pandas as pd
 from collections import Counter
 
-action_2016_02_file='jdata_sam/JData_Action_201602.csv'
-action_2016_03_file='jdata_sam/JData_Action_201603.csv'
-action_2016_04_file='jdata_sam/JData_Action_201604.csv'
-comment_file='jdata_ori/JData_Comment.csv'
+first10_active_record='jdata_sam/first10_active_record.csv'
+
+
 product_file='jdata_ori/JData_Product.csv'
-item_feature_type='jdata_sam/item_feature_type.csv'
+first10_item_feature_type='jdata_sam/first10_item_feature_type.csv'
 
 
 def counter_type(group):
@@ -44,15 +43,8 @@ def statistic_count_action(fname,chunksize=100000):
 
 
 def all_active_data():
-    df_ac=[]
-    df_ac.append(statistic_count_action(action_2016_02_file))
-    df_ac.append(statistic_count_action(action_2016_03_file))
-    df_ac.append(statistic_count_action(action_2016_04_file))
 
-    df_ac=pd.concat(df_ac,ignore_index=True)
-
-    df_ac=df_ac.groupby(['sku_id'],as_index=False).sum()
-
+    df_ac=statistic_count_action(first10_active_record)
 
     df_ac['buy_browse_rate']=df_ac['buy_num']/df_ac['browse_num']
     df_ac['buy_addcart_rate'] = df_ac['buy_num'] / df_ac['addcart_num']
@@ -80,5 +72,5 @@ if __name__ == "__main__":
     product_act=all_active_data()
 
     product_feature=pd.merge(product_base,product_act,on=['sku_id'])
-    product_feature.to_csv(item_feature_type,index=False)
+    product_feature.to_csv(first10_item_feature_type,index=False)
 

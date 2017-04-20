@@ -2,7 +2,7 @@ import pandas as pd
 
 comment_file='jdata_ori/JData_Comment.csv'
 product_file='jdata_ori/JData_Product.csv'
-item_feature_comment='jdata_sam/item_feature_comment.csv'
+first10_item_feature_comment='jdata_sam/first10_item_feature_comment.csv'
 
 
 def get_item_com_feature():
@@ -22,5 +22,5 @@ if __name__ == "__main__":
     item_commit=get_item_com_feature()
 
     product_feature=pd.merge(item_base,item_commit,on=['sku_id'])
-    product_feature.to_csv(item_feature_comment,index=False)
+    product_feature.to_csv(first10_item_feature_comment,index=False)
 

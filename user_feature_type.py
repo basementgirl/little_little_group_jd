@@ -2,12 +2,10 @@ import pandas as pd
 from collections import Counter
 
 
-action_2016_02_file='jdata_sam/JData_Action_201602.csv'
-action_2016_03_file='jdata_sam/JData_Action_201603.csv'
-action_2016_04_file='jdata_sam/JData_Action_201604.csv'
+first10_active_record='jdata_sam/first10_active_record.csv'
 user_file='jdata_ori/JData_User.csv'
 
-user_feature_type='jdata_sam/user_feature_type.csv'
+first10_user_feature_type='jdata_sam/first10_user_feature_type.csv'
 
 
 #每个用户六种行为统计
@@ -45,14 +43,7 @@ def statistic_count_action(fname,chunksize=100000):
 
 #合并月份数据。
 def all_active_data():
-    lst=[]
-    lst.append(statistic_count_action(action_2016_02_file))
-    lst.append(statistic_count_action(action_2016_03_file))
-    lst.append(statistic_count_action(action_2016_04_file))
-
-    df_ac=pd.concat(lst,ignore_index=True)
-
-    df_ac=df_ac.groupby(['user_id'],as_index=False).sum()
+    df_ac=statistic_count_action(first10_active_record)
 
 
     df_ac['buy_browse_rate']=df_ac['buy_num']/df_ac['browse_num']
@@ -104,7 +95,7 @@ if __name__=="__main__":
 
     all_user_feature=pd.merge(user_basic,user_active,on=['user_id'])
     all_user_feature.drop(all_user_feature[(all_user_feature['buy_num'] < 1) & (all_user_feature['browse_num'] > 1000)], axis=1)
-    all_user_feature.to_csv(user_feature_type,index=False)
+    all_user_feature.to_csv(first10_user_feature_type,index=False)
 
 
 

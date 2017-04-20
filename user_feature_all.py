@@ -1,8 +1,8 @@
 import pandas as pd
 
-user_feature_type='jdata_sam/user_feature_type.csv'
-user_feature_cate='jdata_sam/user_feature_cate.csv'
-user_feature_all='jdata_sam/user_feature_all.csv'
+user_feature_type='jdata_sam/first10_user_feature_type.csv'
+user_feature_cate='jdata_sam/first10_user_feature_cate.csv'
+user_feature_all='jdata_sam/first10_user_feature_all.csv'
 
 df_user_feature_type=pd.read_csv(user_feature_type)
 df_user_feature_cate=pd.read_csv(user_feature_cate)

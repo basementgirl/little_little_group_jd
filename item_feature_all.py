@@ -1,8 +1,8 @@
 import pandas as pd
 
-item_feature_type='jdata_sam/item_feature_type.csv'
-item_feature_comment='jdata_sam/item_feature_comment.csv'
-item_feature_all='jdata_sam/item_feature_all.csv'
+item_feature_type='jdata_sam/first10_item_feature_type.csv'
+item_feature_comment='jdata_sam/first10_item_feature_comment.csv'
+item_feature_all='jdata_sam/first10_item_feature_all.csv'
 
 df_item_feature_type=pd.read_csv(item_feature_type)
 df_item_feature_comment=pd.read_csv(item_feature_comment)
