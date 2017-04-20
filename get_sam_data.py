@@ -12,7 +12,7 @@ product_file='jdata_ori/JData_Product.csv'
 user_feature='jdata_sam/user_feature.csv'
 
 
-num_sample=1000000
+num_sample=2000000
 lst=[action_2016_02_file,action_2016_03_file,action_2016_04_file]
 for fname in lst:
     with open('jdata_ori/'+fname[10:],'rb') as fo:
