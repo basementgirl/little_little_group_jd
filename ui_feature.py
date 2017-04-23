@@ -3,7 +3,7 @@ from datetime import date
 from collections import Counter
 from datetime import timedelta
 
-the_1_feature_file='ui_feature/the_1_feature.csv'
+the_1_feature_file='ui_feature_and_flag/the_1_feature.csv'
 
 
 def counter_type(group):
@@ -28,9 +28,12 @@ def get_feature_each_time(firstDay):
 
         df=pd.read_csv('actionSplitByDay/JData_Action_'+current_date+'.csv')
         lst.append(df)
+        print('a file had been load!')
 
     df_ac = pd.concat(lst, ignore_index=True)
+    print('cancat done!')
     df_ac = df_ac.groupby(['user_id','sku_id'], as_index=False).apply(counter_type)
+    print('ui feature of a training set had been done!')
 
     return df_ac
 
@@ -39,6 +42,5 @@ def get_feature_each_time(firstDay):
 if __name__=="__main__":
     the_1_feature=get_feature_each_time()
     the_1_feature.to_csv(the_1_feature_file,index=False)'''
-
 
 

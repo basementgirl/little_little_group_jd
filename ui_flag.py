@@ -3,11 +3,11 @@ from collections import Counter
 from datetime import date
 
 
-the_1_ui_feature_file='ui_feature_and_flag/the_1_ui_feature.csv'
-ui_pair_flag_file='ui_feature_and_flag/the_1_ui_pair_flag.csv'
+ui_feature_file='ui_feature_and_flag/train_set_i_ui_feature.csv'
+train_set_flag_file='ui_feature_and_flag/the_1_ui_pair_flag.csv'
 
 
-#每个用户六种行为统计
+#每个用户六种行为统计git
 def counter_type(group):
     type_cnt=Counter(group['type'])
     group['browse_num']=type_cnt[1]
@@ -63,11 +63,10 @@ def ui_pair_flag():
     print("end ui_pair_day10_15_record()")
 
     #买设为标志1，不买为0.
-    if df['buy_num']>0:
-        df['buy_or_not']=1
-    else:
-        df['buy_or_not']=0
-    return df[['user_id','sku_id','buy_or_not']]
+    df.ix[df['buy_num']>0,'buy_or_not']=1
+    df.ix[df['buy_num'] == 0, 'buy_or_not'] = 0
+
+    return df
 
 
 if __name__=="__main__":
