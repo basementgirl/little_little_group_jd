@@ -55,7 +55,7 @@ def ui_pair_flag_records(j,firstDay):
 
 
 #得到flag。
-def get_flag_each_time(j,firstDay):
+def get_ui_flag_each_time(j,firstDay):
     df=ui_pair_flag_records(j,firstDay)
 
     #买设为标志1，不买为0.

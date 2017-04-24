@@ -3,6 +3,7 @@ from collections import Counter
 from datetime import timedelta
 
 
+
 def counter_type(group):
     type_cnt=Counter(group['type'])
     group['browse_num']=type_cnt[1]
@@ -16,7 +17,7 @@ def counter_type(group):
     return group
 
 
-def get_feature_each_time(firstDay):
+def get_ui_feature_each_time(firstDay):
 
     lst=[]
     for i in range(10):
