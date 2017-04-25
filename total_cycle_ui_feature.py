@@ -7,7 +7,7 @@ from ui_feature import get_ui_feature_each_time
 #注意：运行整体代码时应为61.为了避免耗时，先算一次的。
 
 i = 1
-firstDay = date(2016, 2, 1)
+firstDay = date(2016, 3, 1)
 while i<2:
     ui_feature=get_ui_feature_each_time(firstDay)
     firstDay=firstDay+timedelta(1)
