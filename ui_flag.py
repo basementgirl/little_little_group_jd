@@ -32,7 +32,7 @@ def init_flag_records(firstDay):
 
 # 得到每个训练集的特征记录中的用户商品对。
 def ui_pair_feature_records(j):
-    df_ac=pd.read_csv('ui_feature_and_flag/train_set_%d_ui_feature'%j)
+    df_ac=pd.read_csv('ui_feature_and_flag/train_set_%d_ui_feature.csv'%j)
     df_ac=df_ac[['user_id','sku_id']]
     return df_ac
 
@@ -50,6 +50,7 @@ def ui_pair_flag_records(j,firstDay):
                         (df_ac["sku_id"] == sku_id)])
     df = pd.concat(df, ignore_index=True)
     df = df.groupby(['user_id', 'sku_id'], as_index=False).apply(counter_type)
+    df = df.drop_duplicates()
     print('iteration done!')
     return df
 
@@ -62,7 +63,7 @@ def get_ui_flag_each_time(j,firstDay):
     df.ix[df['buy_num']>0,'buy_or_not']=1
     df.ix[df['buy_num'] == 0, 'buy_or_not'] = 0
 
-    return df
+    return df[['user_id','sku_id','buy_or_not']]
 
 
 

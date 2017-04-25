@@ -10,5 +10,5 @@ while j < 2:
     ui_flag = get_ui_flag_each_time(j,firstDay)
     firstDay = firstDay + timedelta(1)
     print('di %d ge training set is done!' % j)
-    ui_flag.to_csv('ui_feature_and_flag/train_set_%d_ui_flag' % j)
+    ui_flag.to_csv('ui_feature_and_flag/train_set_%d_ui_flag.csv' % j)
     j+=1

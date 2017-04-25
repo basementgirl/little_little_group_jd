@@ -12,7 +12,7 @@ while i<2:
     ui_feature=get_ui_feature_each_time(firstDay)
     firstDay=firstDay+timedelta(1)
     print('di %d ge training set is done!'%i)
-    ui_feature.to_csv('ui_feature_and_flag/train_set_%d_ui_feature' % i)
+    ui_feature.to_csv('ui_feature_and_flag/train_set_%d_ui_feature.csv' % i)
     i+=1
 
 
