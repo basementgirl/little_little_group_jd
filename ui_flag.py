@@ -63,6 +63,7 @@ def get_ui_flag_each_time(j,firstDay):
     df.ix[df['buy_num']>0,'buy_or_not']=1
     df.ix[df['buy_num'] == 0, 'buy_or_not'] = 0
 
+
     return df[['user_id','sku_id','buy_or_not']]
 
 
