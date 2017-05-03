@@ -11,6 +11,7 @@ while k<31:
     #_ = ui_train_set.fillna(0,inplace=True)
     #ui_train_set=ui_train_set.dropna()
     #ui_train_set=ui_train_set.drop('buy_or_not',axis=1)
-    ui_train_set.to_csv('ui_feature_and_flag/ui_train_set_%d.csv'%k,index=False)
+    ui_train_set.to_csv('ui_train_set_%d.csv'%k,index=False)
+    k+=1
 
 
