@@ -4,9 +4,9 @@ from ui_flag import get_ui_flag_each_time
 
 
 #控制得到60次训练集flag的总循环
-j = 3
+j = 5
 firstDay = date(2016, 2, 1)
-while j < 4:
+while j < 6:
     ui_flag = get_ui_flag_each_time(j,firstDay)
     firstDay = firstDay + timedelta(1)
     print('di %d ge training set is done!' % j)
