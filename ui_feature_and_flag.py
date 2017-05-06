@@ -1,6 +1,6 @@
 import pandas as pd
-k=5
-while k<6:
+k=1
+while k<61:
     ui_feature_file='ui_feature_and_flag/train_set_%d_ui_feature.csv'%k
     ui_flag_file='ui_feature_and_flag/train_set_%d_ui_flag.csv'%k
 
