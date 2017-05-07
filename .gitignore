@@ -5,8 +5,8 @@ __pycache__/
 
 jdata_ori/
 jdata_sam/
-actionSplitByDay/
-ui_feature_and_flag/
+actionSplitByDay/JData_Action_*
+ui_feature_and_flag/train_set*
 
 JData_Comment.csv/
 JData_Product.csv/
