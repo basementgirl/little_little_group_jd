@@ -16,8 +16,6 @@ test_set_flag=pd.read_csv( 'ui_feature_and_flag/test_data_3/test_flag.csv')
 y_test=test_set_flag[ 'buy_or_not'  ]
 
 
-import time
-start_time=time.time()T
 
 from sklearn.tree import DecisionTreeClassifier
 
@@ -27,9 +25,9 @@ y_predict=dtc.predict(X_test)
 
 
 from sklearn.metrics import classification_report
-print('Accuracy oy ')
+print('Accuracy of DecisionTreeClassifier ',dtc.score(X_test,y_test))
 print(classification_report( y_test, y_predict,  target_names=['not_buy',  'buy' ]))
-print(time.time()-start_time )#计算运行时间
+
 
 
 
@@ -40,9 +38,9 @@ rfc.fit( X_train, y_train )
 rfc_y_pred=rfc.predict(  X_test  )
 
 
-rfc.score( X_test, y_test  )
 
-print(classification_report(  y_test,rfc_y_pred ))
+print('Accuracy of RandomForestClassifier ',rfc.score( X_test, y_test  ))
+print(classification_report(  y_test,rfc_y_pred ,target_names=['not_buy',  'buy' ]))
 
 
 
@@ -53,9 +51,6 @@ gbc.fit( X_train, y_train)
 
 gbc_y_pred=gbc.predict(X_test)
 
-
-gbc.score( X_test, y_test  )
-
-
-print(classification_report(  y_test,gbc_y_pred   ))
+print('Accuracy of GradientBoostingClassifier ',gbc.score( X_test, y_test  ))
+print(classification_report(  y_test,gbc_y_pred ,target_names=['not_buy',  'buy' ]))
 
