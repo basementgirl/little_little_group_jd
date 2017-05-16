@@ -15,7 +15,7 @@ def counter_type(group):
     group['buy_num'] = type_cnt[4]
     group['favor_num'] = type_cnt[5]
     group['click_num'] = type_cnt[6]
-    group = group.drop('type', axis=1)
+    group.drop('type', axis=1)
     return group
 
 
