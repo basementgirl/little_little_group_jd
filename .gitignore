@@ -5,7 +5,10 @@ __pycache__/
 
 jdata_ori/
 jdata_sam/
+<<<<<<< HEAD
 ui_feature_and_flag/
+
+
 actionSplitByDay/JData_Action_*
 ui_feature_and_flag/train_set*
 
