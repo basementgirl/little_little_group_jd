@@ -8,7 +8,7 @@ X_train=train_set[['browse_num','addcart_num','delcart_num','buy_num','favor_num
 y_train=train_set['buy_or_not']
 
 
-test_set_feature=pd.read_csv( 'ui_feature_and_flag/test_data_4/test_feature.csv')
+test_set_feature=pd.read_csv( 'ui_feature_and_flag/test_data_4/test_set_feature.csv')
 X_test=test_set_feature[['browse_num','addcart_num','delcart_num','buy_num','favor_num','click_num']]
 
 
@@ -18,6 +18,8 @@ gbc =GradientBoostingClassifier()
 gbc.fit( X_train, y_train)
 
 gbc_y_predict=gbc.predict(X_test)
+
+
 gbc_y_predict=pd.DataFrame(gbc_y_predict,columns=['buy_or_not'])
 gbc_y_predict['user_id']=test_set_feature['user_id']
 gbc_y_predict['sku_id']=test_set_feature['sku_id']
@@ -39,10 +41,13 @@ gbc_y_pred=gbc_y_pred.drop('count',axis=1)
 gbc_y_pred.to_csv('ui_feature_and_flag/predict.csv',encoding='utf-8',index=False)
 
 
-#如果是线下测试，则执行以下30～72行。
 '''
+
+#如果是线下测试，则执行以下30～72行。
+
 test_set_flag=pd.read_csv( 'ui_feature_and_flag/test_data_3/test_flag.csv')
 y_test=test_set_flag[ 'buy_or_not'  ]
+
 
 
 
