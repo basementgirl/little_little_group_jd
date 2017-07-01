@@ -49,8 +49,7 @@ def get_user_basic_feature():
 
 
 def get_feature_each_time(firstDay):
-    lst=[]
-    for i in range(10):
+
         current_date=firstDay + timedelta(1) * i
         current_date=current_date.strftime('%Y-%m-%d')
 

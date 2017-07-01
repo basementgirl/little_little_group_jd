@@ -35,6 +35,8 @@ def get_ui_feature_each_time(firstDay):
     df_ac=df_ac.drop_duplicates()
     print('ui feature of a training set had been done!')
 
+
+
     return df_ac
 
 
